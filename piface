@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+#Do notforget to add the user www-data to the group spi!
+#Without that PHP cannot get access to the SPI
+#sudo adduser www-data spi
+#Then restart the webserver!
+#sudo /etc/init.d/apache2/ restart
+
+#needed for arguments
+import sys
+
+#import piface
+import pifacedigitalio as p 
+
+#False means do not reset the board
+pfd = p.PiFaceDigital(0,0,0,False)
+
+#Set output if set
+if(len(sys.argv)>2):
+	pfd.output_pins[int(sys.argv[1])].value = int(sys.argv[2])
+
+#Always return all pin states via json
+print "["
+print "{\"outpin\":0,\"value\":"+str(pfd.output_pins[0].value)+"},"
+print "{\"outpin\":1,\"value\":"+str(pfd.output_pins[1].value)+"},"
+print "{\"outpin\":2,\"value\":"+str(pfd.output_pins[2].value)+"},"
+print "{\"outpin\":3,\"value\":"+str(pfd.output_pins[3].value)+"},"
+print "{\"outpin\":4,\"value\":"+str(pfd.output_pins[4].value)+"},"
+print "{\"outpin\":5,\"value\":"+str(pfd.output_pins[5].value)+"},"
+print "{\"outpin\":6,\"value\":"+str(pfd.output_pins[6].value)+"},"
+print "{\"outpin\":7,\"value\":"+str(pfd.output_pins[7].value)+"}"
+print "]"

@@ -12,12 +12,17 @@ import sys
 #import piface
 import pifacedigitalio as p 
 
-#False means do not reset the board
-pfd = p.PiFaceDigital(0,0,0,False)
+if(len(sys.argv) > 1 and sys.argv[1]=='init'):
+	#init the board
+	pfd = p.PiFaceDigital(0,0,0,True)
+else:
+	#False means do init and do not reset the board again
+        pfd = p.PiFaceDigital(0,0,0,False)
 
-#Set output if set
-if(len(sys.argv)>2):
-	pfd.output_pins[int(sys.argv[1])].value = int(sys.argv[2])
+if(len(sys.argv) > 3 and sys.argv[1]=='write'):
+	#Write out
+	pfd.output_pins[int(sys.argv[2])].value = int(sys.argv[3])
+
 
 #Always return all pin states via json
 print "["
